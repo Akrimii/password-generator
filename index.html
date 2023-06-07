@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="jQuery/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="jQuery/jquery-ui/jquery-ui.structure.css">
+    <link rel="stylesheet" href="jQuery/jquery-ui/jquery-ui.theme.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <script src="jQuery/jquery.js"></script>
+    <script src="index.js"></script>
+    <script src="jQuery/jquery-ui/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>Customize Your Password</h1>
+    <div id="pw">Password</span></div>
+
+
+    <form class="container">
+        <div class="slider">
+            <h4>Password Length</h4>
+            <div id="slider">
+                <div id="custom-handle" class="ui-slider-handle"></div>
+            </div>
+        </div>
+
+
+        
+  
+      <div class="checkbox">
+          <label for="checkbox-1" title="ABCDEFGHIJKLMNOPQRSTUVWXYZ">Uppercase</label>
+          <input type="checkbox" id="checkbox-1" value="uppercase" checked>
+
+          <label for="checkbox-2" title="abcdefghijklmnopqrstuvwxyz">Lowercase</label>
+          <input type="checkbox" id="checkbox-2" value="lowercase" checked>
+
+          <label for="checkbox-3" title="0123456789">Numbers</label>
+          <input type="checkbox" id="checkbox-3" value="numbers">
+
+          <label for="checkbox-4" title="@#$%^&*()_+~|}{[]></-=">Symbols</label>
+          <input type="checkbox" id="checkbox-4" value="symbols">
+      </div>
+    </form>
+
+    <button onclick="generatePassword()">Generate Password</button>
+
+    <script>
+        const u="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        const l="abcdefghijklmnopqrstuvwxyz"
+        const n="0123456789"
+        const s="@#$%^&*()_+~|}{[]></-="
+  
+        function generatePassword(e){
+            const length=parseInt(document.querySelector('.ui-slider-handle').textContent)
+            
+            let checkbox=[]
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(all=>{
+                checkbox.push(all.value)
+            })
+
+            let allChars='';
+            if (checkbox.includes('uppercase')){
+                allChars+=u;
+            } 
+            if (checkbox.includes('lowercase')){
+                allChars+=l;
+            }
+            if (checkbox.includes('numbers')){
+                allChars+=n;
+            }
+            if (checkbox.includes('symbols')){
+                allChars+=s;
+            }
+
+            createPassword(length, allChars)          
+        }
+
+        function createPassword(len, chars){
+            let password="";
+            while (len>password.length){
+                password+=chars[Math.floor(Math.random()*chars.length)]
+            }
+            document.querySelector('#pw').textContent=password;
+        }
+    </script>
+</body>
+
+</html>
