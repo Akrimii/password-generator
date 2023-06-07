@@ -17,7 +17,61 @@ $("document").ready(function(){
     })
   
     $(document).tooltip();
-  
-  
+
+    $('#submit').on('click',()=>generatePassword())
+    
+    const u="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const l="abcdefghijklmnopqrstuvwxyz"
+    const n="0123456789"
+    const s="@#$%^&*()_+~|}{[]></-="
+
+    function generatePassword(){
+        const length=parseInt($('.ui-slider-handle').text())
+        
+        let checkbox=[]
+        document.querySelectorAll('[type="checkbox"]:checked').forEach(all=>{
+            checkbox.push(all.value)
+        })
+
+        let allChars='';
+        if (checkbox.includes('uppercase')){
+            allChars+=u;
+        } 
+        if (checkbox.includes('lowercase')){
+            allChars+=l;
+        }
+        if (checkbox.includes('numbers')){
+            allChars+=n;
+        }
+        if (checkbox.includes('symbols')){
+            allChars+=s;
+        }
+
+        createPassword(length, allChars) ;       
+    }
+
+    function createPassword(len, chars){
+        let password="";
+        while (len>password.length){
+            password+=chars[Math.floor(Math.random()*chars.length)]
+        }
+        $('#pw').text(password);
+    }
+
+    $('#copy').on('click',()=>{
+        const copyText=document.querySelector('#pw').textContent;
+        if (copyText==='Password'){
+            return
+        } else {
+            copyText.select();
+            
+        }
+    })
+
+
+
+    
   })
+
+
   
