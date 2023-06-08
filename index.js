@@ -55,16 +55,17 @@ $("document").ready(function(){
         while (len>password.length){
             password+=chars[Math.floor(Math.random()*chars.length)]
         }
+        $('#copy').removeAttr('title')
         $('#pw').text(password);
     }
 
     $('#copy').on('click',()=>{
-        const copyText=document.querySelector('#pw').textContent;
+        const copyText=$('#pw').text();
         if (copyText==='Password'){
             return
         } else {
-            copyText.select();
-            
+            navigator.clipboard.writeText(copyText) 
+            $('#copy').attr('title','New password copied to the clipboard')        
         }
     })
 
